@@ -19,8 +19,8 @@
 	--sk-page-padding-side: 1.6rem;
 	--sk-thick-border-width: 0.3rem;
 	--sk-border-radius: 0.4rem;
-	--sk-page-content-width: 84rem;
-	--sk-banner-bottom-height: 0px;
+	--sk-page-content-width: 76rem;
+	--sk-banner-height: 0px;
 	--sk-pane-controls-height: 4.2rem;
 
 	/* typography (prefer `font: --sk-font-{x}` over `font-family` and `font-size` rules */
@@ -32,21 +32,14 @@
 	--sk-font-size-h1: 3.6rem;
 	--sk-font-size-h2: 3rem;
 	--sk-font-size-h3: 2.4rem;
-	--sk-font-size-body: 1.8rem;
-	--sk-font-size-body-small: 1.6rem;
+	--sk-font-size-body: 2rem;
+	--sk-font-size-body-small: 1.8rem;
 	--sk-font-size-ui-small: 1.3rem;
 	--sk-font-size-ui-medium: 1.6rem;
 	--sk-font-size-ui-large: 3rem;
 	--sk-font-size-mono: 1.4rem;
 
 	--sk-line-height-body: 1.7;
-
-	@media (resolution: 2x) {
-		--sk-font-family-body: 'EB Garamond', Georgia, serif;
-		--sk-font-size-body: 2.1rem;
-		--sk-font-size-body-small: 1.8rem;
-		--sk-line-height-body: 1.5;
-	}
 
 	--sk-font-h1: 500 var(--sk-font-size-h1) / 1.2 var(--sk-font-family-heading);
 	--sk-font-h2: 500 var(--sk-font-size-h2) / 1.2 var(--sk-font-family-heading);
@@ -80,7 +73,7 @@
 	--sk-shadow: drop-shadow(0px 0px 14px rgba(0, 0, 0, 0.1));
 
 	/* same in light mode, different in dark mode */
-	--sk-theme-1-variant: hsl(15, 100%, 50%);
+	--sk-theme-1-variant: var(--sk-theme-1);
 
 	--sk-code-base: var(--sk-text-2);
 	--sk-code-comment: var(--sk-text-4);
@@ -127,6 +120,14 @@
 	   the 0.01 prevents Vite from optimising it to `translate(0, 0)`, which doesn't fix anything */
 	--safari-fix: translate3d(0, 0, 0.01);
 
+	/* set at 1.75x so if you zoom +/-10% from common settings it won't switch your font */
+	@media (min-resolution: 1.75x) {
+		--sk-font-family-body: 'EB Garamond', Georgia, serif;
+		--sk-font-size-body: 2.2rem;
+		--sk-font-size-body-small: 2rem;
+		--sk-line-height-body: 1.5;
+	}
+
 	&.dark {
 		color-scheme: dark;
 		-webkit-font-smoothing: antialiased;
@@ -149,7 +150,7 @@
 		--sk-scrollbar: rgba(255, 255, 255, 0.3);
 		--sk-shadow: drop-shadow(1px 2px 16px rgba(0, 0, 0, 0.5));
 
-		--sk-theme-1-variant: hsl(15, 100%, 40%);
+		--sk-theme-1-variant: hsl(15, 100%, 35%);
 
 		--sk-text-warning-hsl: 32, 67%, 56%;
 
@@ -174,6 +175,16 @@
 		--sk-raised-color: var(--sk-back-5) var(--sk-back-3) var(--sk-back-3) var(--sk-back-5);
 		--sk-raised-hover-color: var(--sk-back-6) var(--sk-back-3) var(--sk-back-3) var(--sk-back-6);
 		--sk-raised-active-color: var(--sk-back-3) var(--sk-back-6) var(--sk-back-6) var(--sk-back-3);
+	}
+
+	&.font-boring {
+		--sk-font-family-body: 'Atkinson Hyperlegible', sans-serif;
+		--sk-font-size-body: 2rem;
+		--sk-font-size-body-small: 1.8rem;
+
+		p code {
+			font-size: 0.75em;
+		}
 	}
 }
 

@@ -94,6 +94,7 @@
 			transform: translate3d(0, 0, 0);
 			transition-property: filter, scale;
 			transition-duration: 0.2s;
+			user-select: none;
 
 			&:nth-child(1) {
 				top: 0%;
@@ -115,9 +116,11 @@
 				rotate: 1.5deg;
 			}
 
-			&:hover {
-				scale: 1.05;
-				filter: drop-shadow(0.2rem 0.4rem 2.4rem rgb(0 0 0 / 0.2));
+			@media all and not (hover: none) {
+				&:hover {
+					scale: 1.05;
+					filter: drop-shadow(0.2rem 0.4rem 2.4rem rgb(0 0 0 / 0.2));
+				}
 			}
 		}
 
@@ -126,12 +129,16 @@
 			height: auto;
 			object-fit: contain;
 			border-radius: var(--sk-border-radius);
-			filter: grayscale(1);
 			transition: filter 0.2s;
 			-webkit-transform: var(--safari-fix);
 
-			a:hover & {
-				filter: grayscale(0);
+			@media all and not (hover: none) {
+				/* the additional `contrast(1)` is necessary for safari 18 to not behave stupidly */
+				filter: grayscale(1) contrast(1);
+
+				a:hover & {
+					filter: grayscale(0) contrast(1);
+				}
 			}
 		}
 	}
@@ -181,8 +188,12 @@
 				width: auto;
 			}
 
-			.adjective::after {
-				content: 'adjective';
+			.adjective {
+				margin-right: 0.5rem;
+
+				&::after {
+					content: 'adjective';
+				}
 			}
 		}
 	}
@@ -204,22 +215,8 @@
 	}
 
 	@media (min-width: 1140px) {
-		.outer {
-			grid-template-areas:
-				'definition screenshots'
-				'blurb      screenshots';
-		}
-
-		.definition {
-			grid-area: definition;
-		}
-
-		.blurb {
-			grid-area: blurb;
-		}
-
 		.screenshots {
-			grid-area: screenshots;
+			top: -7em;
 		}
 	}
 </style>
