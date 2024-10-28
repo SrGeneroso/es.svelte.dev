@@ -6,13 +6,13 @@ title: Tu primer componente
 ---
 
 <!-- In Svelte, an application is composed from one or more _components_. A component is a reusable self-contained block of code that encapsulates HTML, CSS and JavaScript that belong together, written into a `.svelte` file. The `App.svelte` file, open in the code editor to the right, is a simple component. -->
-En Svelte, una aplicacion se compone de uno o mas _componentes_. Un componente es un bloque de codigo autocontenido y reusable que encapsula el HTML, CSS y Javascript perteniciente al componente en un mismo archivo `.svelte`.
+En Svelte, una aplicación se compone de uno o más _componentes_. Un componente es un bloque de código autocontenido y reusable que encapsula el HTML, CSS y Javascript pertenecientes al componente en un mismo archivo `.svelte`.
 
 <!-- ## Adding data -->
 ##Añadiendo datos
 <!-- TODO: anglicism markup html -->
 <!-- A component that just renders some static markup isn't very interesting. Let's add some data. -->
-Un componente que dibuje en pantalla contenido estatico no es muy interesante. Añadamos algunos datos.
+Un componente que dibuje en pantalla contenido estático no es muy interesante. Añadamos algunos datos.
 
 <!-- First, add a script tag to your component and declare a `name` variable: -->
 Primero, añade la etiqueta `<script>` a tu componente y declara una variable `nombre`:
@@ -20,7 +20,7 @@ Primero, añade la etiqueta `<script>` a tu componente y declara una variable `n
 <!-- ```svelte
 /// file: App.svelte
 +++<script>
-	let name = 'Svelte';
+    let name = 'Svelte';
 </script>+++
 
 <h1>Hello world!</h1>
@@ -28,13 +28,13 @@ Primero, añade la etiqueta `<script>` a tu componente y declara una variable `n
 ```svelte
 /// archivo: App.svelte
 +++<script>
-	let nombre = "svelte"
+    let nombre = "svelte"
 </script>+++
 
 <h1>Hola mundo!</h1>
 ```
 <!-- Then, we can refer to `name` in the markup: -->
-A continuacion, podemos referirnos a `nombre` en el codigo html.
+A continuación, podemos referirnos a `nombre` en el código html.
 
 <!-- ```svelte
 /// file: App.svelte
