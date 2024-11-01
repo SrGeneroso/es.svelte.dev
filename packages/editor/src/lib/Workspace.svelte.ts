@@ -1,5 +1,5 @@
 import type { CompileError, CompileOptions, CompileResult } from 'svelte/compiler';
-import { EditorState } from '@codemirror/state';
+import { Compartment, EditorState } from '@codemirror/state';
 import { compile_file } from './compile-worker';
 import { BROWSER } from 'esm-env';
 import { basicSetup, EditorView } from 'codemirror';
@@ -13,6 +13,7 @@ import { indentWithTab } from '@codemirror/commands';
 import { indentUnit } from '@codemirror/language';
 import { theme } from './theme';
 import { untrack } from 'svelte';
+import type { Diagnostic } from '@codemirror/lint';
 
 export interface File {
 	type: 'file';
@@ -50,10 +51,12 @@ function file_type(file: Item) {
 	return file.name.split('.').pop();
 }
 
+const tab_behaviour = new Compartment();
+
 const default_extensions = [
 	basicSetup,
 	EditorState.tabSize.of(2),
-	keymap.of([{ key: 'Tab', run: acceptCompletion }, indentWithTab]),
+	tab_behaviour.of(keymap.of([{ key: 'Tab', run: acceptCompletion }])),
 	indentUnit.of('\t'),
 	theme
 ];
@@ -77,6 +80,7 @@ const default_extensions = [
 interface ExposedCompilerOptions {
 	generate: 'client' | 'server';
 	dev: boolean;
+	modernAst: boolean;
 }
 
 export class Workspace {
@@ -86,7 +90,8 @@ export class Workspace {
 
 	#compiler_options = $state.raw<ExposedCompilerOptions>({
 		generate: 'client',
-		dev: false
+		dev: false,
+		modernAst: true
 	});
 	compiled = $state<Record<string, Compiled>>({});
 
@@ -101,6 +106,51 @@ export class Workspace {
 	// CodeMirror stuff
 	states = new Map<string, EditorState>();
 	#view: EditorView | null = null;
+
+	diagnostics = $derived.by(() => {
+		const diagnostics: Diagnostic[] = [];
+
+		const error = this.current_compiled?.error;
+		const warnings = this.current_compiled?.result?.warnings ?? [];
+
+		if (error) {
+			diagnostics.push({
+				severity: 'error',
+				from: error.position![0],
+				to: error.position![1],
+				message: error.message,
+				renderMessage: () => {
+					const span = document.createElement('span');
+					span.innerHTML = `${error.message
+						.replace(/&/g, '&amp;')
+						.replace(/</g, '&lt;')
+						.replace(/`(.+?)`/g, `<code>$1</code>`)} <strong>(${error.code})</strong>`;
+
+					return span;
+				}
+			});
+		}
+
+		for (const warning of warnings) {
+			diagnostics.push({
+				severity: 'warning',
+				from: warning.start!.character,
+				to: warning.end!.character,
+				message: warning.message,
+				renderMessage: () => {
+					const span = document.createElement('span');
+					span.innerHTML = `${warning.message
+						.replace(/&/g, '&amp;')
+						.replace(/</g, '&lt;')
+						.replace(/`(.+?)`/g, `<code>$1</code>`)} <strong>(${warning.code})</strong>`;
+
+					return span;
+				}
+			});
+		}
+
+		return diagnostics;
+	});
 
 	constructor(
 		files: Item[],
@@ -141,6 +191,14 @@ export class Workspace {
 		return this.#current;
 	}
 
+	get current_compiled() {
+		if (this.#current.name in this.compiled) {
+			return this.compiled[this.#current.name];
+		}
+
+		return null;
+	}
+
 	add(item: Item) {
 		this.#create_directories(item);
 		this.#files = this.#files.concat(item);
@@ -151,6 +209,20 @@ export class Workspace {
 		}
 
 		return item;
+	}
+
+	disable_tab_indent() {
+		this.#view?.dispatch({
+			effects: tab_behaviour.reconfigure(keymap.of([{ key: 'Tab', run: acceptCompletion }]))
+		});
+	}
+
+	enable_tab_indent() {
+		this.#view?.dispatch({
+			effects: tab_behaviour.reconfigure(
+				keymap.of([{ key: 'Tab', run: acceptCompletion }, indentWithTab])
+			)
+		});
 	}
 
 	focus() {

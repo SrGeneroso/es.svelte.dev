@@ -154,10 +154,10 @@
 
 	let runes = $derived(
 		workspace.current.name.endsWith('.svelte.js') ||
-			(workspace.compiled[workspace.current.name!]?.result?.metadata.runes ?? false)
+			(workspace.current_compiled?.result?.metadata.runes ?? false)
 	);
 
-	let migration = $derived(workspace.compiled[workspace.current.name!]?.migration);
+	let migration = $derived(workspace.current_compiled?.migration);
 	let can_migrate = $derived(migration ? migration.code !== workspace.current?.contents : false);
 </script>
 
@@ -166,7 +166,7 @@
 <div class="container" class:embedded class:toggleable={$toggleable} bind:clientWidth={width}>
 	<div class="viewport" class:output={show_output}>
 		<SplitPane
-			--color="var(--sk-text-4)"
+			--color="var(--sk-fg-4)"
 			id="main"
 			type={orientation === 'rows' ? 'vertical' : 'horizontal'}
 			pos="{mobile || fixed ? fixedPos : orientation === 'rows' ? 60 : 50}%"
@@ -205,7 +205,7 @@
 		flex: 1;
 		height: 100%;
 		min-height: 0;
-		background: var(--sk-back-1);
+		background: var(--sk-bg-1);
 		padding: 0;
 
 		&.embedded {
@@ -235,7 +235,7 @@
 			}
 
 			.divider::after {
-				background-color: var(--sk-back-5);
+				background-color: var(--sk-bg-5);
 			}
 
 			[data-pane='main'] > .divider::after {
