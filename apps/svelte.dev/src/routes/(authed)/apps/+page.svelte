@@ -50,7 +50,7 @@
 </script>
 
 <svelte:head>
-	<title>Your apps • Svelte</title>
+	<title>Your apps • Svelte</title>
 </svelte:head>
 
 <div class="apps">
@@ -156,7 +156,6 @@
 		padding: 0 0 0 3.2rem;
 		position: relative;
 		margin: 1rem 0;
-		color: var(--sk-fg-2);
 		font: var(--sk-font-ui-medium);
 
 		.avatar {
@@ -209,7 +208,7 @@
 		padding: 0.5rem 1rem;
 		line-height: 1;
 		display: flex;
-		border: 1px solid var(--sk-border-medium);
+		border: 1px solid var(--sk-border);
 		border-radius: var(--sk-border-radius);
 		z-index: 2;
 		font: var(--sk-font-ui-large);

@@ -58,7 +58,7 @@
 	nav {
 		top: 0;
 		left: 0;
-		color: var(--sk-fg-3);
+		color: var(--sk-fg-2);
 		position: relative;
 	}
 
@@ -86,7 +86,7 @@
 		transition: color 0.2s;
 		border-bottom: none;
 		padding: 0;
-		color: var(--sk-fg-2);
+		color: inherit;
 		user-select: none;
 	}
 

@@ -30,8 +30,6 @@ Top navigation bar for the application. It provides a slot for the left side, th
 	let current = $state.raw<NavigationLink | undefined>();
 	let menu_button: HTMLButtonElement;
 
-	let nav: HTMLElement | undefined = $state();
-
 	// Prevents navbar to show/hide when clicking in docs sidebar
 	let hash_changed = false;
 	function handle_hashchange() {
@@ -68,7 +66,6 @@ Top navigation bar for the application. It provides a slot for the left side, th
 />
 
 <nav
-	bind:this={nav}
 	class:visible
 	style:z-index={$overlay_open && ($searching || $on_this_page_open) ? 80 : null}
 	aria-label="Primary"
@@ -188,7 +185,7 @@ Top navigation bar for the application. It provides a slot for the left side, th
 		height: var(--sk-nav-height);
 		margin: 0 auto;
 		padding: 0 var(--sk-page-padding-side);
-		background-color: var(--sk-bg-2);
+		background-color: var(--sk-bg-1);
 		font-family: var(--sk-font-family-body);
 		user-select: none;
 		isolation: isolate;
@@ -203,6 +200,10 @@ Top navigation bar for the application. It provides a slot for the left side, th
 			height: 4px;
 			background: linear-gradient(to top, rgba(0, 0, 0, 0.05), transparent);
 		}
+
+		:root.dark & {
+			background-color: var(--sk-bg-3);
+		}
 	}
 
 	a {
@@ -212,7 +213,7 @@ Top navigation bar for the application. It provides a slot for the left side, th
 	.current-section {
 		display: flex;
 		align-items: center;
-		color: var(--sk-fg-3);
+		color: inherit;
 		margin-left: 0.4em;
 		font: var(--sk-font-ui-medium);
 	}
@@ -227,17 +228,13 @@ Top navigation bar for the application. It provides a slot for the left side, th
 		}
 	}
 
-	button {
-		color: var(--sk-fg-3);
-	}
-
 	.links {
 		display: flex;
 		width: 100%;
 		align-items: center;
 
 		a {
-			color: var(--sk-fg-2);
+			color: inherit;
 			font: var(--sk-font-ui-medium);
 
 			white-space: nowrap;
@@ -248,7 +245,7 @@ Top navigation bar for the application. It provides a slot for the left side, th
 			outline-offset: -2px;
 
 			&:hover {
-				box-shadow: inset 0 -1px 0 0 var(--sk-bg-5);
+				box-shadow: inset 0 -1px 0 0 var(--sk-border);
 			}
 
 			&[aria-current='page'] {

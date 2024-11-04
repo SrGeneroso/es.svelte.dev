@@ -100,12 +100,12 @@
 				height: 2rem;
 				background: url($lib/icons/chevron.svg);
 				background-size: contain;
-				rotate: -90deg;
+				rotate: 0deg;
 				transition: rotate 0.2s;
 			}
 
 			[open] &::after {
-				rotate: 90deg;
+				rotate: 180deg;
 			}
 
 			span:not(:last-child)::after {
@@ -122,6 +122,7 @@
 		overflow: hidden;
 		background: var(--background);
 		font: var(--sk-font-ui-medium);
+		color: inherit;
 
 		&::before {
 			content: '';
@@ -169,7 +170,6 @@
 			width: 100%;
 			overflow: hidden;
 			font: var(--sk-font-ui-medium);
-			color: var(--sk-fg-2);
 
 			span {
 				display: inline;
@@ -189,7 +189,6 @@
 			width: calc(100% + 1rem);
 			left: -0.5rem;
 			overflow: hidden;
-			color: var(--sk-fg-1);
 
 			&::before,
 			&::after {
@@ -227,7 +226,6 @@
 		:global(mark) {
 			--highlight-color: rgba(255, 255, 0, 0.4);
 			background: none;
-			color: var(--sk-fg-1);
 			background: var(--highlight-color);
 			outline: 2px solid var(--highlight-color);
 		}

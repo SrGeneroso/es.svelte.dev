@@ -9,7 +9,7 @@
 </script>
 
 <svelte:head>
-	<title>Blog • Svelte</title>
+	<title>Blog • Svelte</title>
 	<link
 		rel="alternate"
 		type="application/rss+xml"
@@ -74,28 +74,27 @@
 
 	h2 {
 		display: inline-block;
-		color: var(--sk-fg-2);
+		color: var(--sk-fg-1);
 		font: var(--sk-font-h3);
 	}
 
 	article {
 		margin: 0 0 4rem 0;
 
-		/* we need to use :global because snippets don't currently cause a deopt */
 		&.top {
 			margin: 0 0 2rem 0;
 			padding: 0 0 4rem 0;
 
 			h2 {
 				font: var(--sk-font-h1);
-				color: var(--sk-fg-2);
+				color: var(--sk-fg-1);
 			}
 		}
 
 		a {
 			display: block;
 			text-decoration: none;
-			color: var(--sk-fg-2);
+			color: inherit;
 
 			&:hover h2 {
 				text-decoration: underline;
@@ -130,7 +129,7 @@
 				top: 0;
 				font: var(--sk-font-ui-medium);
 				text-transform: uppercase;
-				color: var(--sk-fg-4);
+				color: var(--sk-fg-3);
 			}
 		}
 
@@ -164,7 +163,7 @@
 			a {
 				display: block;
 				font: var(--sk-font-body);
-				color: var(--sk-fg-2);
+				color: inherit;
 			}
 		}
 	}

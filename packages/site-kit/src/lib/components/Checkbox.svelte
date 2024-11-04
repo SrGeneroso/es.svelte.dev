@@ -32,7 +32,7 @@
 		border-radius: 1em;
 		top: 0;
 		left: 0;
-		background: var(--sk-bg-5);
+		background: var(--sk-bg-4);
 		box-sizing: content-box;
 	}
 
@@ -49,7 +49,7 @@
 		top: 2px;
 		left: 2px;
 		border-radius: 1em;
-		background: white;
+		background: var(--sk-bg-1);
 		box-shadow:
 			0 0px 1px rgba(0, 0, 0, 0.4),
 			0 4px 2px rgba(0, 0, 0, 0.1);

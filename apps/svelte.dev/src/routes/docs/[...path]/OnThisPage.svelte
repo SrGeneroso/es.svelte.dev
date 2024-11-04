@@ -74,7 +74,7 @@
 			}
 
 			a {
-				color: var(--sk-fg-3);
+				color: var(--sk-fg-2);
 			}
 		}
 
@@ -96,11 +96,7 @@
 				padding: 0.2rem 0 0 3rem;
 				height: 3rem;
 				text-transform: uppercase;
-				color: var(--sk-fg-4);
-
-				&:hover {
-					color: var(--sk-fg-3);
-				}
+				user-select: none;
 
 				&::before,
 				&::after {
@@ -133,7 +129,7 @@
 					background-size: 2rem;
 					top: 0.4rem;
 					right: 0.2rem;
-					rotate: -90deg;
+					rotate: 0deg;
 					transition: rotate 0.2s;
 					transition: rotate 0.2s;
 				}
@@ -148,12 +144,16 @@
 					color: var(--sk-fg-4);
 					margin: 0;
 					display: block;
+
+					&:hover {
+						color: var(--sk-fg-3);
+					}
 				}
 			}
 
 			label:has(:checked) {
 				&::after {
-					rotate: 90deg;
+					rotate: 180deg;
 				}
 
 				/* TODO remove :global once https://github.com/sveltejs/svelte/issues/13779 is fixed */

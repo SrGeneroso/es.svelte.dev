@@ -218,7 +218,7 @@
 		}
 
 		:root.dark & {
-			border-top: solid 1.1px hsla(0, 0%, 100%, 0.2);
+			border-top: solid 1px var(--sk-raised-highlight);
 		}
 	}
 
@@ -265,7 +265,7 @@
 		& :global(a) {
 			position: relative;
 			padding: 0.3rem 0;
-			color: var(--sk-fg-3);
+			color: inherit;
 			font: var(--sk-font-ui-medium);
 			width: 100%;
 			height: 100%;
@@ -332,7 +332,7 @@
 		hr {
 			margin: 0.5rem 0;
 			height: 1px;
-			background: var(--sk-border-dark);
+			background: var(--sk-border);
 			border: none;
 		}
 	}

@@ -12,7 +12,7 @@
 	});
 
 	export async function scrollToActive() {
-		const active = nav.querySelector('[aria-current="true"]') as HTMLElement;
+		const active = nav.querySelector('[aria-current="page"]') as HTMLElement;
 
 		if (!active) {
 			nav.scrollTop = 0;
@@ -94,7 +94,6 @@
 		padding-bottom: 0.8rem;
 		font: var(--sk-font-ui-medium);
 		text-transform: uppercase;
-		color: var(--sk-fg-1);
 	}
 
 	h2 {
@@ -108,7 +107,6 @@
 	a {
 		display: flex;
 		align-items: center;
-		color: var(--sk-fg-2);
 
 		&[aria-current='page'] {
 			color: var(--sk-fg-accent) !important;

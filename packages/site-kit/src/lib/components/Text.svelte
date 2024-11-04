@@ -113,7 +113,7 @@
 		.code-block {
 			position: relative;
 			background: var(--sk-bg-2);
-			border: 1px solid var(--sk-border-medium);
+			border: 1px solid var(--sk-border);
 			border-radius: var(--sk-border-radius);
 			overflow: hidden;
 			margin: calc(0.5 * var(--sk-line-height-body)) 0;
@@ -186,7 +186,7 @@
 						align-items: center;
 						font-size: 1.2rem;
 						font-family: var(--sk-font-family-mono);
-						color: var(--sk-fg-2);
+						color: inherit;
 					}
 
 					&::before {
@@ -417,7 +417,6 @@
 		}
 
 		blockquote {
-			color: var(--sk-fg-1);
 			padding: 0 0 0 4.5rem;
 
 			&.note,
@@ -496,7 +495,7 @@
 			&::after {
 				background: url($lib/icons/chevron.svg) 50% 50% no-repeat;
 				background-size: 2rem;
-				rotate: -90deg;
+				rotate: 0deg;
 				transition: rotate 0.2s;
 				transition: rotate 0.2s;
 				top: 0.2rem;
@@ -513,13 +512,9 @@
 				display: flex;
 				align-items: center;
 				height: 3rem;
-				color: var(--sk-fg-4);
+				color: var(--sk-fg-3);
 				font: var(--sk-font-body-small);
 				user-select: none;
-
-				&:hover {
-					color: var(--sk-fg-3);
-				}
 
 				.legacy &::after {
 					position: absolute;
@@ -535,7 +530,7 @@
 
 			&[open] {
 				&::after {
-					rotate: 90deg;
+					rotate: 180deg;
 				}
 
 				& > summary {
@@ -550,6 +545,11 @@
 			& > :last-child {
 				margin-bottom: 0;
 			}
+		}
+
+		figcaption {
+			font: var(--sk-font-ui-medium);
+			color: var(--sk-fg-3);
 		}
 	}
 </style>

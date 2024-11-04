@@ -1,4 +1,5 @@
-import type { File } from '../Workspace.svelte';
+import type { CompileResult } from 'svelte/compiler';
+import type { ExposedCompilerOptions, File } from '../Workspace.svelte';
 
 // hack for magic-string and Svelte 4 compiler
 // do not put this into a separate module and import it, would be treeshaken in prod
@@ -39,12 +40,10 @@ addEventListener('message', async (event) => {
 	const { id, file, options } = event.data as {
 		id: number;
 		file: File;
-		options: { generate: 'client' | 'server'; dev: boolean };
+		options: ExposedCompilerOptions;
 	};
 
-	const fn = file.name.endsWith('.svelte') ? self.svelte.compile : self.svelte.compileModule;
-
-	if (!fn) {
+	if (!file.name.endsWith('.svelte') && !self.svelte.compileModule) {
 		// .svelte.js file compiled with Svelte 3/4 compiler
 		postMessage({
 			id,
@@ -69,7 +68,30 @@ addEventListener('message', async (event) => {
 	}
 
 	try {
-		const result = fn(file.contents, { ...options, filename: file.name });
+		let result: CompileResult;
+
+		if (file.name.endsWith('.svelte')) {
+			const is_svelte_3_or_4 = !self.svelte.compileModule;
+			const compilerOptions: any = {
+				generate: is_svelte_3_or_4
+					? options.generate === 'client'
+						? 'dom'
+						: 'ssr'
+					: options.generate,
+				dev: options.dev,
+				filename: file.name
+			};
+			if (!is_svelte_3_or_4) {
+				compilerOptions.modernAst = options.modernAst; // else Svelte 3/4 will throw an "unknown option" error
+			}
+			result = self.svelte.compile(file.contents, compilerOptions);
+		} else {
+			result = self.svelte.compileModule(file.contents, {
+				generate: options.generate,
+				dev: options.dev,
+				filename: file.name
+			});
+		}
 
 		postMessage({
 			id,
